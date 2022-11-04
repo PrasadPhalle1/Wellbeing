@@ -7,7 +7,8 @@
     </listeners>
     <test name="TestRun">
         <classes>
-            <class name="Test.WellbeingLogin_Test"/>
+<!--            <class name="Test.WellbeingLogin_Test"/>-->
+            <class name="Test.PatientSignup_Test"/>
         </classes>
     </test>
 </suite>
