@@ -1,0 +1,5 @@
+[INFO ] 2022-11-04 10:44:38.321 [main] Log - I am in on Start TestRun
+[INFO ] 2022-11-04 10:44:41.983 [main] Log - loginTest test is starting.
+[INFO ] 2022-11-04 10:44:42.225 [main] Log - Checking the Login and logout
+[INFO ] 2022-11-04 10:44:45.501 [main] Log - loginTest test is succeed.
+[INFO ] 2022-11-04 10:44:46.620 [main] Log - I am in on Finish TestRun
