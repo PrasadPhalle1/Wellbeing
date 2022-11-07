@@ -4,6 +4,7 @@ import common.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import utils.logs.Log;
 
 import static common.Utility.*;
@@ -31,11 +32,17 @@ public class PatientSignup_PageObjects extends BasePage {
     @FindBy(xpath = "//input[@placeholder='Password']")
     public WebElement passwordText;
 
+    @FindBy(xpath = "(//ion-icon[@name='eye'])[1]")
+    public WebElement passwordEyeIcon;
+
     @FindBy(xpath = "//ion-label[text()='Should be at least 8 characters long!']")
     public WebElement passwordTextErrorMsg;
 
     @FindBy(xpath = "//input[@placeholder='Confirm Password']")
     public WebElement confirmPasswordText;
+
+    @FindBy(xpath = "(//ion-icon[@name='eye'])[2]")
+    public WebElement confirmPasswordEyeIcon;
 
     @FindBy(xpath = "//ion-label[text()='Confirm password does not match']")
     public WebElement confirmPasswordTextErrorMsg;
@@ -181,45 +188,24 @@ public class PatientSignup_PageObjects extends BasePage {
 
     public void patientSignup() throws InterruptedException {
         Log.info("Checking the Patient Signup functions");
-        waitForElementVisible(loginBtn);
-        clickElement(loginBtn);
-        waitForElementVisible(signupLink);
-        clickElement(signupLink);
-        waitForElementVisible(doctorBtn);
-        clickElement(doctorBtn);
-        Thread.sleep(2000);
-        waitForElementVisible(patientBtn);
-        clickElement(patientBtn);
-        Thread.sleep(2000);
-//        waitForElementVisible(emailText);
-//        emailText.sendKeys(prop.getProperty("patientSignupMail"));
-//        waitForElementVisible(passwordText);
-//        passwordText.sendKeys(prop.getProperty("patientSignupPassword"));
-//        waitForElementVisible(confirmPasswordText);
-//        confirmPasswordText.sendKeys(prop.getProperty("patientSignupConfirmPassword"));
-//        waitForElementVisible(registerBtn);
-//        if(registerBtn.isEnabled()) {
-//            clickElement(registerBtn);
-//        }
-//        waitForElementVisible(okBtn);
-//        clickElement(okBtn);
-//        Thread.sleep(10000);
-//        driver.navigate().back();
-//        waitForElementVisible(submitBtn);
-//        if (submitBtn.isEnabled()) {
-//            clickElement(submitBtn);
-//        }
+        pageLoadWait();
+        selectPatientTabThroughSignupLink();
+        verifyWrongSignupCredentialsAndAlreadyRegisteredPatient();
+        newPatientSignup();
+        clickOnLinkSentToYourEmailForValidation();  // ToDo: within 10 Sec manually click On Link Sent To Your Email For Validation
+
+
 //        waitForElementVisible(fullName);
 //        fullName.sendKeys(prop.getProperty("patientSignupFullName"));
 //        waitForElementVisible(dateOfBirth);
 //        clickElement(dateOfBirth);
-//        scrollUsingJavaScriptExecutor(month);
+//        scrollUpTo(month);
 //        waitForElementVisible(month);
 //        clickElement(month);
-//        scrollUsingJavaScriptExecutor(date);
+//        scrollUpTo(date);
 //        waitForElementVisible(date);
 //        clickElement(date);
-//        scrollUsingJavaScriptExecutor(year);
+//        scrollUpTo(year);
 //        waitForElementVisible(year);
 //        clickElement(year);
 //        waitForElementVisible(setBtn);
@@ -230,7 +216,7 @@ public class PatientSignup_PageObjects extends BasePage {
 //        clickElement(male);
 //        waitForElementVisible(genderOkBtn);
 //        clickElement(genderOkBtn);
-//        scrollUsingJavaScriptExecutor(contactNumber);
+//        scrollUpTo(contactNumber);
 //        waitForElementVisible(contactNumber);
 //        contactNumber.sendKeys(prop.getProperty("patientSignupContactNumber"));
 //        waitForElementVisible(addressLine1);
@@ -239,12 +225,12 @@ public class PatientSignup_PageObjects extends BasePage {
 //        addressLine2.sendKeys(prop.getProperty("patientSignupAddressLine2"));
 //        waitForElementVisible(city);
 //        city.sendKeys(prop.getProperty("patientSignupCity"));
-//        scrollUsingJavaScriptExecutor(state);
+//        scrollUpTo(state);
 //        waitForElementVisible(state);
 //        state.sendKeys(prop.getProperty("patientSignupState"));
 //        waitForElementVisible(zip);
 //        zip.sendKeys(prop.getProperty("patientSignupZip"));
-//        scrollUsingJavaScriptExecutor(country);
+//        scrollUpTo(country);
 //        waitForElementVisible(country);
 //        country.sendKeys(prop.getProperty("patientSignupCountry"));
 //        waitForElementVisible(termsCheckbox);
@@ -255,6 +241,130 @@ public class PatientSignup_PageObjects extends BasePage {
 //        }
 //        waitForElementVisible(logoutBtn);
 //        clickElement(logoutBtn);
+    }
+
+    public void selectPatientTabThroughSignupLink() throws InterruptedException {
+        waitForElementVisible(loginBtn);
+        clickElement(loginBtn);
+        waitForElementVisible(signupLink);
+        clickElement(signupLink);
+        waitForElementVisible(doctorBtn);
+        clickElement(doctorBtn);
+        Thread.sleep(2000);
+        waitForElementVisible(patientBtn);
+        clickElement(patientBtn);
+        Thread.sleep(2000);
+    }
+
+    public void verifyWrongSignupCredentialsAndAlreadyRegisteredPatient() throws InterruptedException {
+        waitForElementVisible(emailText);
+        emailText.sendKeys(prop.getProperty("patientSignupWrongMail"));
+        clickElement(passwordText);
+        Assert.assertEquals(emailTextErrorMsg.getText(), "Should be a valid email address!");
+        clickElement(emailText);
+        emailText.clear();
+        emailText.sendKeys(prop.getProperty("patientAlreadySignupCorrectMail"));
+        passwordText.sendKeys(prop.getProperty("patientSignupWrongPassword"));
+        clickOnPasswordEyeIcon();
+        clickElement(confirmPasswordText);
+        Assert.assertEquals(passwordTextErrorMsg.getText(), "Should be at least 8 characters long!");
+        clickElement(passwordText);
+        passwordText.clear();
+        passwordText.sendKeys(prop.getProperty("patientAlreadySignupCorrectPassword"));
+        clickOnPasswordEyeIcon();
+        confirmPasswordText.sendKeys(prop.getProperty("patientSignupWrongConfirmPassword"));
+        clickOnConfirmPasswordEyeIcon();
+        Assert.assertEquals(confirmPasswordTextErrorMsg.getText(), "Confirm password does not match");
+        clickElement(confirmPasswordText);
+        confirmPasswordText.clear();
+        confirmPasswordText.sendKeys(prop.getProperty("patientAlreadySignupCorrectConfirmPassword"));
+        clickOnConfirmPasswordEyeIcon();
+        waitForElementVisible(registerBtn);
+        scrollUpTo(registerBtn);
+        Assert.assertEquals(registerBtn.isEnabled(),true);
+        Thread.sleep(2000);
+        if(registerBtn.isEnabled()) {
+            clickElement(registerBtn);
+        }
+        Thread.sleep(2000);
+        waitForElementVisible(userExistsPopUp);
+        String patientAlreadyExistMessage = userExistsMsg.getText();
+        Assert.assertEquals(userExistsMsg.getText(), patientAlreadyExistMessage);
+        waitForElementVisible(okBtn);
+        clickElement(okBtn);
+        Thread.sleep(2000);
+    }
+
+    public void clickOnPasswordEyeIcon(){
+        waitForElementVisible(passwordEyeIcon);
+        try {
+            for (int i=0; i<2; i++){
+                clickElement(passwordEyeIcon);
+                Thread.sleep(1000);
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    public void clickOnConfirmPasswordEyeIcon(){
+        waitForElementVisible(confirmPasswordEyeIcon);
+        try {
+            for (int i=0; i<2; i++){
+                clickElement(confirmPasswordEyeIcon);
+                Thread.sleep(1000);
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    public void newPatientSignup() throws InterruptedException {
+        waitForElementVisible(emailText);
+        emailText.sendKeys(prop.getProperty("patientSignupWrongMail"));
+        clickElement(passwordText);
+        Assert.assertEquals(emailTextErrorMsg.getText(), "Should be a valid email address!");
+        clickElement(emailText);
+        emailText.clear();
+        emailText.sendKeys(prop.getProperty("patientNewSignupCorrectMail"));
+        passwordText.sendKeys(prop.getProperty("patientSignupWrongPassword"));
+        clickOnPasswordEyeIcon();
+        clickElement(confirmPasswordText);
+        Assert.assertEquals(passwordTextErrorMsg.getText(), "Should be at least 8 characters long!");
+        clickElement(passwordText);
+        passwordText.clear();
+        passwordText.sendKeys(prop.getProperty("patientNewSignupCorrectPassword"));
+        clickOnPasswordEyeIcon();
+        confirmPasswordText.sendKeys(prop.getProperty("patientSignupWrongConfirmPassword"));
+        clickOnConfirmPasswordEyeIcon();
+        Assert.assertEquals(confirmPasswordTextErrorMsg.getText(), "Confirm password does not match");
+        clickElement(confirmPasswordText);
+        confirmPasswordText.clear();
+        confirmPasswordText.sendKeys(prop.getProperty("patientNewSignupCorrectConfirmPassword"));
+        clickOnConfirmPasswordEyeIcon();
+        waitForElementVisible(registerBtn);
+        scrollUpTo(registerBtn);
+        Assert.assertEquals(registerBtn.isEnabled(),true);
+        Thread.sleep(2000);
+        if(registerBtn.isEnabled()) {
+            clickElement(registerBtn);
+        }
+        Thread.sleep(2000);
+        waitForElementVisible(validateEmailPopUp);
+        String newPatientValidateMessage = validateEmailMsg.getText();
+        Assert.assertEquals(validateEmailMsg.getText(), newPatientValidateMessage);
+        waitForElementVisible(okBtn);
+        clickElement(okBtn);
+        Thread.sleep(2000);
+    }
+
+    public void clickOnLinkSentToYourEmailForValidation() throws InterruptedException {
+        Thread.sleep(10000);
+        driver.navigate().back();
+        waitForElementVisible(submitBtn);
+        if (submitBtn.isEnabled()) {
+            clickElement(submitBtn);
+        }
     }
 
 

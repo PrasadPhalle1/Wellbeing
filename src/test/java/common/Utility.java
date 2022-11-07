@@ -24,7 +24,11 @@ public class Utility extends BasePage{
         }
     }
 
-    public static void scrollUsingJavaScriptExecutor(WebElement element){
+//    public static void scrollUsingJavaScriptExecutor(WebElement element){
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+//    }
+
+    public static void scrollUpTo(WebElement element){
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
     }
 }

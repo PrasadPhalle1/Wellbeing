@@ -267,13 +267,13 @@ public class DoctorSignup_PageObjects extends BasePage {
         fullName.sendKeys(prop.getProperty("doctorSignupFullname"));
         waitForElementVisible(dateOfBirth);
         clickElement(dateOfBirth);
-        scrollUsingJavaScriptExecutor(month);
+        scrollUpTo(month);
         waitForElementVisible(month);
         clickElement(month);
-        scrollUsingJavaScriptExecutor(date);
+        scrollUpTo(date);
         waitForElementVisible(date);
         clickElement(date);
-        scrollUsingJavaScriptExecutor(year);
+        scrollUpTo(year);
         waitForElementVisible(year);
         clickElement(year);
         waitForElementVisible(setBtn);
@@ -282,7 +282,7 @@ public class DoctorSignup_PageObjects extends BasePage {
         clickElement(gender);
         waitForElementVisible(male);
         clickElement(male);
-        scrollUsingJavaScriptExecutor(phoneNumber);
+        scrollUpTo(phoneNumber);
         waitForElementVisible(phoneNumber);
         phoneNumber.sendKeys(prop.getProperty("doctorSignupPhoneNumber"));
         waitForElementVisible(nextBtn);
@@ -315,7 +315,7 @@ public class DoctorSignup_PageObjects extends BasePage {
         city.sendKeys(prop.getProperty("doctorSignupCity"));
         waitForElementVisible(state);
         state.sendKeys(prop.getProperty("doctorSignupState"));
-        scrollUsingJavaScriptExecutor(pinCode);
+        scrollUpTo(pinCode);
         waitForElementVisible(pinCode);
         pinCode.sendKeys(prop.getProperty("doctorSignupPinCode"));
         waitForElementVisible(country);
