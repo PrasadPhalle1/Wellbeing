@@ -21,12 +21,17 @@ public class PatientSignup_Test extends BasePage {
     }
 
     @Test(priority = 1)
-    public void patientSignupTest(Method method) throws InterruptedException {
-        startTest(method.getName(),"Testing the Patient Signup");
-        patientSignup.patientSignup();
+    public void newPatientSignupTest(Method method) throws InterruptedException {
+        startTest(method.getName(),"Testing the New Patient Signup");
+        patientSignup.selectPatientTabThroughSignupLink();
+        patientSignup.verifyWrongSignupCredentialsAndAlreadyRegisteredPatient();
+        patientSignup.newPatientSignup();
+        patientSignup.clickOnLinkSentToYourEmailForValidation();  // ToDo: within 10 Sec manually click On Link Sent To Your Email For Validation
+        patientSignup.enterDetailsForNewPatientSignup();
+        patientSignup.clickInToCheckBoxForTermsAndConditions();
+        patientSignup.clickSaveButton();
+        patientSignup.refreshPageAndLogout();
     }
-
-
 
     @AfterTest
     public void tearDown(){

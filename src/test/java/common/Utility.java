@@ -41,4 +41,8 @@ public class Utility extends BasePage{
     public static void pressEscape(WebElement element){
         element.sendKeys(Keys.ESCAPE);
     }
+
+    public static void refreshWebPage(){
+        ((JavascriptExecutor)driver).executeScript("history.go(0)");
+    }
 }
