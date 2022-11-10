@@ -1,8 +1,10 @@
 package common;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Utility extends BasePage{
@@ -24,7 +26,23 @@ public class Utility extends BasePage{
         }
     }
 
-    public static void scrollUsingJavaScriptExecutor(WebElement element){
+//    public static void scrollUsingJavaScriptExecutor(WebElement element){
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+//    }
+
+    public static void scrollUpTo(WebElement element){
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+    }
+
+    public static void pressTab(WebElement element){
+        element.sendKeys(Keys.TAB);
+    }
+
+    public static void pressEscape(WebElement element){
+        element.sendKeys(Keys.ESCAPE);
+    }
+
+    public static void refreshWebPage(){
+        ((JavascriptExecutor)driver).executeScript("history.go(0)");
     }
 }
