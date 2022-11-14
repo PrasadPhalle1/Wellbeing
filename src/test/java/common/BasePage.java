@@ -1,10 +1,13 @@
 package common;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.FileInputStream;
+import java.lang.reflect.WildcardType;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
@@ -41,11 +44,50 @@ public class BasePage {
 //        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         pageLoadWait();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.get(prop.getProperty("URL"));
+//        driver.get(prop.getProperty("URL"));
+    }
+
+    public void loadUrl(String url) {
+        driver.get(url);
+//        log.info("Loading URL " + url);
     }
 
     public static void pageLoadWait(){
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+    }
+
+    public void openNewTab(){
+//        driver.get("http://test.wellbeingapp.in/#");
+        driver.switchTo().newWindow(WindowType.TAB);
+    }
+
+    public void openNewWindow(){
+//        driver.get("http://test.wellbeingapp.in/#");
+        driver.switchTo().newWindow(WindowType.WINDOW);
+    }
+
+    public Set<String> getWindows() {
+        return driver.getWindowHandles();
+    }
+
+    public String getCurrentWindow() {
+        return driver.getWindowHandle();
+    }
+
+    public void switchToWindow(String windowId) {
+        driver.switchTo().window(windowId);
+    }
+
+    public void closeCurrentWindow(String windowId) {
+        driver.switchTo().window(windowId);
+        driver.close();
+        for (String w : getWindows()) {
+            if (!w.equals(windowId)) {
+                switchToWindow(w);
+//                log.info("Switched to Base Page");
+                break;
+            }
+        }
     }
 
     protected void closeDriver(){

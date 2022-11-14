@@ -7,8 +7,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.lang.reflect.WildcardType;
+import java.time.Duration;
+
 public class Utility extends BasePage{
-    public static WebDriverWait wait = new WebDriverWait(driver, 20);
+//    public static WebDriverWait wait = new WebDriverWait(driver, 20);
+    public static WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     public static void waitForElementVisible(WebElement webElem){
         try{
@@ -45,4 +49,8 @@ public class Utility extends BasePage{
     public static void refreshWebPage(){
         ((JavascriptExecutor)driver).executeScript("history.go(0)");
     }
+
+//    public static void openNewTab(){
+//        driver.switchTo().newWindow(WildcardType.TAB);
+//    }
 }
