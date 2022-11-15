@@ -24,11 +24,12 @@ public class LoginAndLogout_Test extends BasePage {
         startTest(method.getName(), "Testing Login");
         loginAndLogout.loadWellbeingURL();
         loginAndLogout.doctorLogin();
+        loginAndLogout.doctorLogout();
 //        openNewTab();
-        openNewWindow();
-        loginAndLogout.loadWellbeingURL();
+//        openNewWindow();
+//        loginAndLogout.loadWellbeingURL();
         loginAndLogout.patientLogin();
-//        loginAndLogout.patientLogout();
+        loginAndLogout.patientLogout();
 //        loginAndLogout.doctorLogout();
     }
 

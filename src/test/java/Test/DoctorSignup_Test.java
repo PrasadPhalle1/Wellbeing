@@ -8,6 +8,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.awt.*;
 import java.lang.reflect.Method;
 
 import static utils.extentreports.ExtentTestManager.startTest;
@@ -22,9 +23,10 @@ public class DoctorSignup_Test extends BasePage {
     }
 
     @Test(priority = 1)
-    public void newDoctorSignupTest(Method method) throws InterruptedException {
+    public void newDoctorSignupTest(Method method) throws InterruptedException, AWTException {
         startTest(method.getName(), "Testing Signup");
 //        signup.doctorSignupExistsUser();
+        signup.loadWellbeingURL();
         signup.selectDoctorTabThroughSignupLink();
         signup.verifyWrongSignupCredentialsAndAlreadyRegisteredDoctor();
         signup.newDoctorSignup();

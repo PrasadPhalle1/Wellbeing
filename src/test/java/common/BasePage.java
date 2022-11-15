@@ -42,7 +42,7 @@ public class BasePage {
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
 //        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-        pageLoadWait();
+//        pageLoadWait();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 //        driver.get(prop.getProperty("URL"));
     }

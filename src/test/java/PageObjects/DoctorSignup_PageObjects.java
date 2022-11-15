@@ -7,6 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.logs.Log;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
+
 import static common.Utility.*;
 
 public class DoctorSignup_PageObjects extends BasePage {
@@ -147,8 +152,12 @@ public class DoctorSignup_PageObjects extends BasePage {
     @FindBy(xpath = "//ion-label[text()=' Experience Invalid ']")
     public WebElement invalidExperience;
 
-        @FindBy(xpath = "//*[text()='Upload Certificate ']")
+    @FindBy(xpath = "//*[text()='Upload Certificate ']")
     public WebElement certificate;
+
+    @FindBy(xpath = "//span[text()='Yes']")
+    public WebElement yesBtn;
+
     //    nextBtn
     @FindBy(xpath = "//input[@name='clinicName']")
     public WebElement clinicName;
@@ -225,7 +234,7 @@ public class DoctorSignup_PageObjects extends BasePage {
     @FindBy(xpath = "//input[@name='from-0']")
     public WebElement from;
     //    setBtn
-    @FindBy(xpath = "( //mbsc-wheel-item[@ng-reflect-index='10'])[1]")
+    @FindBy(xpath = "(//mbsc-wheel-item[@ng-reflect-index='10'])[1]")
     public WebElement selectHoursFrom;
     @FindBy(xpath = "(//mbsc-wheel-item[@ng-reflect-index='0'])[2]")
     public WebElement selectMinites;
@@ -277,6 +286,12 @@ public class DoctorSignup_PageObjects extends BasePage {
 //        selectDoctorTabThroughSignupLink();
 //        verifyWrongSignupCredentialsAndAlreadyRegisteredDoctor();
 //    }
+
+    public void loadWellbeingURL() {
+        loadUrl(prop.getProperty("WellbeingURL"));
+        pageLoadWait();
+        Log.info("Wellbeing URL is loaded");
+    }
 
     public void selectDoctorTabThroughSignupLink() throws InterruptedException {
         pageLoadWait();
@@ -419,7 +434,7 @@ public class DoctorSignup_PageObjects extends BasePage {
         Log.info("Clicked On Link Sent To Your Email For Validation");
     }
 
-    public void enterDetailsForNewDoctorSignup() throws InterruptedException {
+    public void enterDetailsForNewDoctorSignup() throws InterruptedException, AWTException {
         doctorRegisterFormOne();
         doctorRegisterFormTwo();
         doctorRegisterFormThree();
@@ -441,6 +456,7 @@ public class DoctorSignup_PageObjects extends BasePage {
         Log.info("Click on dateOfBirth textbox & cancel");
         waitForElementVisible(dateOfBirth);
         clickElement(dateOfBirth);
+        dateOfBirth.clear();
         Log.info("Click on dateOfBirth  ");
 //        scrollUpTo(month);
 //        waitForElementVisible(month);
@@ -457,10 +473,23 @@ public class DoctorSignup_PageObjects extends BasePage {
 //        clickElement(year);
 //        Thread.sleep(2000);
 //        Log.info("Select year");
+
         dateOfBirth.sendKeys("09/06/1981");
+        clickElement(dateOfBirth);
+        Thread.sleep(5000);
+        clickElement(dateOfBirth);
+
         waitForElementVisible(setBtn);
         clickElement(setBtn);
         Log.info("Click on DOB set Button");
+
+        Thread.sleep(5000);
+        waitForElementVisible(dateOfBirth);
+        clickElement(dateOfBirth);
+        Thread.sleep(5000);
+        waitForElementVisible(cancel);
+        clickElement(cancel);
+
         waitForElementVisible(gender);
         clickElement(gender);
         Log.info("Click on gender textbox");
@@ -483,7 +512,8 @@ public class DoctorSignup_PageObjects extends BasePage {
         Log.info("Filled Doctor Registration Form One");
     }
 
-    public void doctorRegisterFormTwo() throws InterruptedException {
+    public void doctorRegisterFormTwo() throws InterruptedException, AWTException {
+        Robot robot = new Robot();
         pageLoadWait();
         waitForElementVisible(special);
         clickElement(special);
@@ -504,8 +534,26 @@ public class DoctorSignup_PageObjects extends BasePage {
         waitForElementVisible(certificate);
 //        clickElement(certificate);
 //        Thread.sleep(5000);
-        certificate.sendKeys("D:\\Prasad-SWQA\\SWQA_Wellbeing\\src\\test\\resources\\files\\certificate.pdf");
-        Log.info("click upload certificate");
+//        certificate.sendKeys("D:\\Prasad-SWQA\\SWQA_Wellbeing\\src\\test\\resources\\files\\certificate.pdf");
+        //        PDF File
+//        StringSelection stringSelection2 = new StringSelection("C:\\Users\\Manish Chowke\\IdeaProjects\\Automation_Wellbeing\\src\\test\\resources\\files\\certificate_pdf.pdf");
+        StringSelection stringSelection2 = new StringSelection("D:\\Prasad-SWQA\\SWQA_Wellbeing\\src\\test\\resources\\files\\certificate.pdf");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection2,null);
+        waitForElementVisible(certificate);
+        clickElement(certificate);
+        robot.setAutoDelay(2000);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.setAutoDelay(2000);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.setAutoDelay(2000);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        Thread.sleep(5000);
+//        waitForElementVisible(yesBtn);
+//        clickElement(yesBtn);
+//        Thread.sleep(2000);
+        Log.info("certificate uploaded");
         waitForElementVisible(nextBtn);
         if(nextBtn.isEnabled()) {
             clickElement(nextBtn);
@@ -573,48 +621,73 @@ public class DoctorSignup_PageObjects extends BasePage {
         Log.info("click on ok btn");
         waitForElementVisible(from);
         clickElement(from);
-//        from.sendKeys("10:30 AM");
-//        waitForElementVisible();
-//        clickElement();
+
+        from.clear();
+        from.sendKeys(prop.getProperty("timeFrom"));
+        clickElement(from);
+        Thread.sleep(1000);
+        waitForElementVisible(cancel);
+        clickElement(cancel);
+        Thread.sleep(1000);
+        clickElement(from);
+        Thread.sleep(1000);
+
 //        waitForElementVisible(scrollOne);
 //        clickElement(scrollOne);
+//        scrollUpTo(selectHoursFrom);
+//        waitForElementVisible(selectHoursFrom);
+//        clickElement(selectHoursFrom);
+//        Thread.sleep(2000);
+////        waitForElementVisible(scrollTwo);
+////        clickElement(scrollTwo);
+//        waitForElementVisible(selectMinites);
+//        clickElement(selectMinites);
+//        Thread.sleep(2000);
+//        Log.info("click on from and select time");
+//        waitForElementVisible(am);
+//        clickElement(am);
+//        Log.info("select am ");
+//        Thread.sleep(2000);
 
-        scrollUpTo(selectHoursFrom);
-        waitForElementVisible(selectHoursFrom);
-        clickElement(selectHoursFrom);
-        Thread.sleep(2000);
-//        waitForElementVisible(scrollTwo);
-//        clickElement(scrollTwo);
-        waitForElementVisible(selectMinites);
-        clickElement(selectMinites);
-        Thread.sleep(2000);
-        Log.info("click on from and select time");
-        waitForElementVisible(am);
-        clickElement(am);
-        Log.info("select am ");
-        Thread.sleep(2000);
         waitForElementVisible(setBtn);
         clickElement(setBtn);
-        Log.info("click on setBtn ");
+        Log.info("clicked on setBtn for time-From");
+
+
         waitForElementVisible(to);
 //        to.sendKeys("03:00 PM");
         clickElement(to);
-        Thread.sleep(2000);
-        waitForElementVisible(selectHoursTo);
-        scrollUpTo(selectHoursTo);
-        clickElement(selectHoursTo);
-        Thread.sleep(2000);
-        waitForElementVisible(selectMinites);
-        clickElement(selectMinites);
-        Thread.sleep(2000);
-        Log.info("click on to and select time ");
-        waitForElementVisible(pm);
-        clickElement(pm);
-        Log.info("select pm");
-        Thread.sleep(2000);
+
+        to.clear();
+        to.sendKeys(prop.getProperty("timeTo"));
+        clickElement(to);
+        Thread.sleep(1000);
+        waitForElementVisible(cancel);
+        clickElement(cancel);
+        Thread.sleep(1000);
+        clickElement(to);
+        Thread.sleep(1000);
+
+//        Thread.sleep(2000);
+//        waitForElementVisible(selectHoursTo);
+//        scrollUpTo(selectHoursTo);
+//        clickElement(selectHoursTo);
+//        Thread.sleep(2000);
+//        waitForElementVisible(selectMinites);
+//        clickElement(selectMinites);
+//        Thread.sleep(2000);
+//        Log.info("click on to and select time ");
+//        waitForElementVisible(pm);
+//        clickElement(pm);
+//        Log.info("select pm");
+//        Thread.sleep(2000);
+
+
         waitForElementVisible(setBtn);
         clickElement(setBtn);
-        Log.info("click on setBtn ");
+        Log.info("Clicked on setBtn for time-To");
+
+
         waitForElementVisible(feeStructure);
         clickElement(feeStructure);
         Thread.sleep(2000);
