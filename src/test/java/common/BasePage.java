@@ -18,7 +18,7 @@ public class BasePage {
     public BasePage() {
         try {
             prop = new Properties();
-            FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+ "/src/test/resources/config.properties");
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+ "/src/test/resources/" + "config.properties");
             prop.load(fis);
         } catch (Exception e) {
         }
@@ -31,7 +31,7 @@ public class BasePage {
 //            ChromeOptions option = new ChromeOptions();
 //            option.addArguments("--disable-notifications");
             System.setProperty("webdriver.chrome.whitelistedIps", "");
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "/src/test/resources/driver/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "/src/test/resources/driver/" + "chromedriver.exe");
             driver = new ChromeDriver();
 
         }

@@ -9,8 +9,9 @@
         <classes>
 <!--            <class name="Test.WellbeingLogin_Test"/>-->
 <!--            <class name="Test.PatientSignup_Test"/>-->
-            <class name="Test.DoctorSignup_Test"/>
+<!--            <class name="Test.DoctorSignup_Test"/>-->
 <!--            <class name="Test.LoginAndLogout_Test"/>-->
+            <class name="Test.WellbeingProfile_Test"/>
         </classes>
     </test>
 </suite>
