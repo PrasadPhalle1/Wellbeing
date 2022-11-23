@@ -227,7 +227,11 @@ public class PatientSignup_PageObjects extends BasePage {
         PageFactory.initElements(driver,this);
     }
 
-
+    public void loadWellbeingURL() {
+        loadUrl(prop.getProperty("WellbeingURL"));
+        pageLoadWait();
+        Log.info("Wellbeing URL is loaded");
+    }
 
     public void selectPatientTabThroughSignupLink() throws InterruptedException {
         pageLoadWait();

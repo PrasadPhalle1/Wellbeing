@@ -5,6 +5,8 @@ import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.WildcardType;
 import java.util.Properties;
 import java.util.Set;
@@ -20,7 +22,10 @@ public class BasePage {
             prop = new Properties();
             FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+ "/src/test/resources/" + "config.properties");
             prop.load(fis);
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,6 +50,7 @@ public class BasePage {
 //        pageLoadWait();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 //        driver.get(prop.getProperty("URL"));
+        driver.get(prop.getProperty("WellbeingURL"));
     }
 
     public void loadUrl(String url) {
@@ -94,6 +100,7 @@ public class BasePage {
         if(driver!= null) {
             assert driver != null;
             driver.quit();
+//            driver.close();
         }
     }
 }

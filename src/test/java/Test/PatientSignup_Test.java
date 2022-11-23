@@ -23,6 +23,7 @@ public class PatientSignup_Test extends BasePage {
     @Test(priority = 1)
     public void newPatientSignupTest(Method method) throws InterruptedException {
         startTest(method.getName(),"Testing the New Patient Signup");
+//        patientSignup.loadWellbeingURL();
         patientSignup.selectPatientTabThroughSignupLink();
         patientSignup.verifyWrongSignupCredentialsAndAlreadyRegisteredPatient();
         patientSignup.newPatientSignup();
