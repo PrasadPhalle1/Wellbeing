@@ -79,4 +79,5 @@ public class LoginAndLogout_PageObjects extends BasePage {
         Log.info("Clicked on Logout for Patient");
         Thread.sleep(3000);
     }
+
 }

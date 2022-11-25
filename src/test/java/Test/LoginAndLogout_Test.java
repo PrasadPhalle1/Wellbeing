@@ -2,9 +2,7 @@ package Test;
 
 import PageObjects.LoginAndLogout_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
@@ -13,7 +11,7 @@ import static utils.extentreports.ExtentTestManager.startTest;
 public class LoginAndLogout_Test extends BasePage {
     LoginAndLogout_PageObjects loginAndLogout;
 
-    @BeforeTest
+    @BeforeClass
     public void setup(){
         initialize();
         loginAndLogout = new LoginAndLogout_PageObjects();
@@ -22,7 +20,7 @@ public class LoginAndLogout_Test extends BasePage {
     @Test
     public void loginAndLogoutTest(Method method) throws InterruptedException {
         startTest(method.getName(), "Testing Login");
-        loginAndLogout.loadWellbeingURL();
+//        loginAndLogout.loadWellbeingURL();
         loginAndLogout.doctorLogin();
         loginAndLogout.doctorLogout();
 //        openNewTab();
@@ -33,7 +31,7 @@ public class LoginAndLogout_Test extends BasePage {
 //        loginAndLogout.doctorLogout();
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown(){
         closeDriver();
     }
