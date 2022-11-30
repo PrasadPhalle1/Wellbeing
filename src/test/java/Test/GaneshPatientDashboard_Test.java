@@ -2,9 +2,7 @@ package Test;
 
 import PageObjects.GaneshPatientDashboard_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
@@ -15,7 +13,7 @@ public class GaneshPatientDashboard_Test extends BasePage {
 
     GaneshPatientDashboard_PageObjects patientDashboard;
 
-    @BeforeTest
+    @BeforeClass
     public void setup(){
         initialize();
         patientDashboard=new GaneshPatientDashboard_PageObjects();
@@ -31,7 +29,7 @@ public class GaneshPatientDashboard_Test extends BasePage {
 
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown(){
         closeDriver();
     }

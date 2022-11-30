@@ -23,12 +23,8 @@ public class LoginAndLogout_Test extends BasePage {
 //        loginAndLogout.loadWellbeingURL();
         loginAndLogout.doctorLogin();
         loginAndLogout.doctorLogout();
-//        openNewTab();
-//        openNewWindow();
-//        loginAndLogout.loadWellbeingURL();
         loginAndLogout.patientLogin();
         loginAndLogout.patientLogout();
-//        loginAndLogout.doctorLogout();
     }
 
     @AfterClass

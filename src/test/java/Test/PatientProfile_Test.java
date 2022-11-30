@@ -1,33 +1,29 @@
 package Test;
 
-import PageObjects.GaneshPatientProfile_PageObjects;
+import PageObjects.PatientProfile_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.awt.*;
 import java.lang.reflect.Method;
 
-import static common.Utility.refreshWebPage;
-import static common.Utility.scrollUpTo;
 import static utils.extentreports.ExtentTestManager.startTest;
 
-public class GaneshPatientProfile_Test extends BasePage {
+public class PatientProfile_Test extends BasePage {
 
-    GaneshPatientProfile_PageObjects patientprofile;
+    PatientProfile_PageObjects patientprofile;
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
         initialize();
-        patientprofile = new GaneshPatientProfile_PageObjects();
+        patientprofile = new PatientProfile_PageObjects();
     }
 
     @Test
     public void patientProfileUpdateTest(Method method) throws InterruptedException, AWTException {
         startTest(method.getName(), "Checking the Patient Appointment Massage");
 //        patientprofile.loadWellbeingURL();
-        patientprofile.loginOption();
+        patientprofile.loginToUpdateNewPatientProfile();
         patientprofile.clickOnProfile();
 
         patientprofile.verifyRequiredAndInvalidChangePasswordForPatientProfile();
@@ -58,7 +54,7 @@ public class GaneshPatientProfile_Test extends BasePage {
         patientprofile.patientLogout();
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         closeDriver();
     }

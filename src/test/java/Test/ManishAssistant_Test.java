@@ -2,9 +2,7 @@ package Test;
 
 import PageObjects.ManishAssistant_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.awt.*;
 import java.lang.reflect.Method;
@@ -15,7 +13,7 @@ public class ManishAssistant_Test extends BasePage {
 
     ManishAssistant_PageObjects assistant;
 
-    @BeforeTest
+    @BeforeClass
     public void setup(){
         initialize();
         assistant = new ManishAssistant_PageObjects();
@@ -27,7 +25,7 @@ public class ManishAssistant_Test extends BasePage {
         assistant.assistantOption();
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown(){
         closeDriver();
     }

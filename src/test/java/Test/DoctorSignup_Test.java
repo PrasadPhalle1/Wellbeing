@@ -1,22 +1,20 @@
 package Test;
 
-import PageObjects.AayshaDoctorSignup_PageObjects;
+import PageObjects.DoctorSignup_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.awt.*;
 import java.lang.reflect.Method;
 
 import static utils.extentreports.ExtentTestManager.startTest;
 
-public class AayshaDoctorSignup_Test extends BasePage {
-    AayshaDoctorSignup_PageObjects signup;
-    @BeforeTest
+public class DoctorSignup_Test extends BasePage {
+    DoctorSignup_PageObjects signup;
+    @BeforeClass
     public void setup(){
         initialize();
-        signup = new AayshaDoctorSignup_PageObjects();
+        signup = new DoctorSignup_PageObjects();
 
     }
 
@@ -36,7 +34,7 @@ public class AayshaDoctorSignup_Test extends BasePage {
     }
 
 
-    @AfterTest
+    @AfterClass
     public void tearDown(){
         closeDriver();
     }

@@ -2,9 +2,7 @@ package Test;
 
 import PageObjects.PatientSignup_PageObjects;
 import common.BasePage;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
@@ -14,7 +12,7 @@ public class PatientSignup_Test extends BasePage {
 
     PatientSignup_PageObjects patientSignup;
 
-    @BeforeTest
+    @BeforeClass
     public void setup(){
         initialize();
         patientSignup=new PatientSignup_PageObjects();
@@ -34,7 +32,7 @@ public class PatientSignup_Test extends BasePage {
         patientSignup.refreshPageAndLogout();
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown(){
         closeDriver();
     }
