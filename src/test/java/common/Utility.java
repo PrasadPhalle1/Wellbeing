@@ -3,6 +3,7 @@ package common;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,6 +45,10 @@ public class Utility extends BasePage{
         element.sendKeys(Keys.TAB);
     }
 
+    public static void pressEnterKay(WebElement element){
+        element.sendKeys(Keys.ENTER);
+    }
+
     public static void pressEscape(WebElement element){
         element.sendKeys(Keys.ESCAPE);
     }
@@ -59,6 +64,7 @@ public class Utility extends BasePage{
     public static void pressEnter() throws AWTException {
         Robot enter = new Robot();
         enter.keyPress(KeyEvent.VK_ENTER);
+        enter.keyRelease(KeyEvent.VK_ENTER);
     }
 
     public static void selectAllText() throws AWTException {
@@ -97,5 +103,28 @@ public class Utility extends BasePage{
         Robot delete = new Robot();
         delete.keyPress(KeyEvent.VK_DELETE);
         delete.keyRelease(KeyEvent.VK_DELETE);
+    }
+
+    public static void pressTAB() throws AWTException {
+        Robot tab = new Robot();
+        tab.keyPress(KeyEvent.VK_TAB);
+        tab.keyRelease(KeyEvent.VK_TAB);
+    }
+
+    public static void waitForElementClickable(WebElement webElem){
+        try{
+            wait.until(ExpectedConditions.elementToBeClickable(webElem));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public static void moveTOElement(WebElement webElem){
+        try{
+            Actions actions = new Actions(driver);
+            actions.moveToElement(webElem, 0, -1 ).build().perform();
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }

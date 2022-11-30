@@ -9,12 +9,11 @@ import utils.logs.Log;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 
 import static common.Utility.*;
 import static common.Utility.pressTab;
 
-public class GaneshPatientProfile_PageObjects extends BasePage {
+public class PatientProfile_PageObjects extends BasePage {
     @FindBy(xpath = "//ion-label[text()='Login']")
     public WebElement loginBTN;
 
@@ -136,7 +135,8 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
     @FindBy(xpath = "//input[@name='contact']")
     public WebElement contact;
 
-    @FindBy(xpath = "//ion-label[text()=' Contact Number Required']")
+//    @FindBy(xpath = "//ion-label[text()=' Contact Number Required']")
+    @FindBy(xpath = "//ion-label[text()=' Contact Number Required ']")
     public WebElement contactNumberRequiredError;
 
     @FindBy(xpath = "//ion-label[text()='Contact Number is Invalid']")
@@ -145,7 +145,7 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
     @FindBy(xpath = "//input[@name='address1']")
     public WebElement addressLineOneInput;
 
-    @FindBy(xpath = "//ion-label[text()='Please provide an address']")
+    @FindBy(xpath = "//ion-label[text()=' Please provide an address']")
     public WebElement addressLineOneProvideError;
 
     @FindBy(xpath = "//input[@name='address2']")
@@ -205,7 +205,7 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
 
 
 
-    public GaneshPatientProfile_PageObjects(){
+    public PatientProfile_PageObjects(){
         PageFactory.initElements(driver,this);
     }
 
@@ -215,30 +215,37 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
         Log.info("Wellbeing URL is loaded");
     }
 
-    public void loginOption() {
-        Log.info("Checking the Login and logout");
+    public void loginToUpdateNewPatientProfile() throws InterruptedException {
         waitForElementVisible(loginBTN);
         clickElement(loginBTN);
         Log.info("Click on login button");
+        Thread.sleep(1000);
         waitForElementVisible(emailText);
 //        emailText.sendKeys(prop.getProperty("patientNewSignupCorrectMail"));
         emailText.sendKeys(prop.getProperty("patientNewSignupCorrectMail"));
-        Log.info("Click on email");
+        Log.info("Provided valid email for loginToUpdateNewPatientProfile");
+        Thread.sleep(1000);
         waitForElementVisible(passwordText);
         passwordText.sendKeys(prop.getProperty("patientNewSignupCorrectPassword"));
 //        passwordText.sendKeys("P@ssw0rd!002");
-        Log.info("Click on password");
+        Log.info("Provided valid password for loginToUpdateNewPatientProfile");
+        Thread.sleep(1000);
         waitForElementVisible(submitBTN);
         clickElement(submitBTN);
         Log.info("Click on submit ");
+        Thread.sleep(1000);
+        Log.info("Logged in To Update New Patient Profile");
+        pageLoadWait();
     }
 
     public void clickOnProfile() throws InterruptedException {
+//        refreshWebPage();
         Thread.sleep(3000);
         waitForElementVisible(profile);
         clickElement(profile);
-        Thread.sleep(2000);
         Log.info("Clicked On Profile");
+        Thread.sleep(2000);
+        pageLoadWait();
     }
 
     public void verifyRequiredAndInvalidChangePasswordForPatientProfile() throws InterruptedException {
@@ -473,6 +480,7 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
         clickElement(removeProfile);
         waitForElementVisible(yesBtn);
         clickElement(yesBtn);
+        Thread.sleep(2000);
     }
 
     public void scrollUpToZipCode() throws InterruptedException {
@@ -557,8 +565,9 @@ public class GaneshPatientProfile_PageObjects extends BasePage {
         Assert.assertEquals(contactNumberInvalidError.getText(), contactNumberInvalidErrorMsg);
         Log.info("Asserted contactNumberInvalidErrorErrorMsg");
 
-        contact.clear();
+//        contact.clear();
         clickElement(contact);
+        selectAllText();
         pasteText();
         Thread.sleep(2000);
         Log.info("Entered Valid Contact Number For Patient Profile");

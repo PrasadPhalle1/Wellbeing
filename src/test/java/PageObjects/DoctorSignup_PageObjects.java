@@ -13,7 +13,7 @@ import java.util.List;
 
 import static common.Utility.*;
 
-public class AayshaDoctorSignup_PageObjects extends BasePage {
+public class DoctorSignup_PageObjects extends BasePage {
 
     @FindBy(xpath = "//ion-label[text()='Login']")
     public WebElement loginBtn;
@@ -371,7 +371,7 @@ public class AayshaDoctorSignup_PageObjects extends BasePage {
     @FindBy(xpath = "//ion-label[text()='Logout']")
     public WebElement logoutBtn;
 
-    public AayshaDoctorSignup_PageObjects(){
+    public DoctorSignup_PageObjects(){
 
         PageFactory.initElements(driver,this);
     }
@@ -560,23 +560,23 @@ public class AayshaDoctorSignup_PageObjects extends BasePage {
         Log.info("Verified doctor is already signed up so Logged in and Logged out");
     }
 
-//    public  void loginWithValidCredentials() throws InterruptedException {
-//        Log.info("Check the  login");
-//         waitForElementVisible(loginBtn);
-//        clickElement(loginBtn);
-//        Log.info("Click login btn");
-//        waitForElementVisible(email);
-//        email.sendKeys(prop.getProperty("email1"));
-//        Log.info("Send email");
-//        waitForElementVisible(password);
-//        password.sendKeys(prop.getProperty("password1"));
-//        Log.info("Send password");
-//        Thread.sleep(3000);
-//        waitForElementVisible(submitBtn);
-//        clickElement(submitBtn);
-//        Thread.sleep(3000);
-//        Log.info("Click on login for submit");
-//    }
+    public  void loginWithValidCredentials() throws InterruptedException {
+        Log.info("Check the  login");
+         waitForElementVisible(loginBtn);
+        clickElement(loginBtn);
+        Log.info("Click login btn");
+        waitForElementVisible(email);
+        email.sendKeys(prop.getProperty("email1"));
+        Log.info("Send email");
+        waitForElementVisible(password);
+        password.sendKeys(prop.getProperty("password1"));
+        Log.info("Send password");
+        Thread.sleep(3000);
+        waitForElementVisible(submitBtn);
+        clickElement(submitBtn);
+        Thread.sleep(3000);
+        Log.info("Click on login for submit");
+    }
 
     public void newDoctorSignupWithValidCredentials() throws InterruptedException {
         Log.info(" New Signup check");
@@ -862,7 +862,7 @@ public class AayshaDoctorSignup_PageObjects extends BasePage {
         Thread.sleep(3000);
         clickElement(specialization);
 
-        for (int i=0;i<=specializationList.size()-1;i++){
+        for (int i=0;i<=specializationList.size()-17;i++){
             specializationList.get(i).click();
             System.out.println(specializationList.get(i).getText());
         }
@@ -1335,10 +1335,12 @@ public class AayshaDoctorSignup_PageObjects extends BasePage {
         to.sendKeys(prop.getProperty("doctorNewSignupCorrectDetails_ToTime"));
         Thread.sleep(2000);
         clickElement(to);
-        pressEscape(to);
-//        scrollUpTo(pm);
-        Thread.sleep(5000);
-        clickElement(to);
+//        pressEscape(to);
+        waitForElementVisible(pm);
+        scrollUpTo(pm);
+        Thread.sleep(2000);
+        clickElement(pm);
+//        clickElement(to);
         waitForElementVisible(setBtn);
         clickElement(setBtn);
         pressEscape(to);
@@ -1346,17 +1348,17 @@ public class AayshaDoctorSignup_PageObjects extends BasePage {
         Log.info("Verified And Entered To Shift Time");
         Log.info("Verified And Entered Valid Shift Time");
         ////////////add Schedule/////////////////
-        verifyAndEnterAddNewSchedule();
+//        verifyAndEnterAddNewSchedule();
 
     }
 
     public void verifyAndEnterAddNewSchedule() throws InterruptedException {
         waitForElementVisible(addSchedule);
         clickElement(addSchedule);
-        Thread.sleep(4000);
+        Thread.sleep(2000);
         waitForElementVisible(removeAddSchedule);
         clickElement(removeAddSchedule);
-        Thread.sleep(4000);
+        Thread.sleep(2000);
 //        waitForElementVisible(addSchedule);
 //        clickElement(addSchedule);
 //        Thread.sleep(2000);

@@ -13,7 +13,7 @@ import java.awt.datatransfer.StringSelection;
 import static common.Utility.*;
 import static common.Utility.pressEnter;
 
-public class ManishDoctorProfile_PageObjects extends BasePage {
+public class DoctorProfile_PageObjects extends BasePage {
 
     @FindBy(xpath = "//ion-label[text()='Login']")
     public WebElement loginBTN;
@@ -189,37 +189,52 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
     @FindBy(xpath = "(//ion-label[.='Logout'])[2]")
     public WebElement logout;
 
-    public ManishDoctorProfile_PageObjects(){
+    public DoctorProfile_PageObjects(){
         PageFactory.initElements(driver,this);
     }
 
-    public void loginOption() {
-        Log.info("login with valid details");
+    public void loginToUpdateNewDoctorProfile() throws InterruptedException {
         waitForElementVisible(loginBTN);
         clickElement(loginBTN);
+        Log.info("Click on login button");
+        Thread.sleep(1000);
         waitForElementVisible(emailText);
-        emailText.sendKeys("pgatest.swqa+pp_2311_d10@gmail.com");
+//        emailText.sendKeys("pgatest.swqa+pp_2311_d10@gmail.com");
+        emailText.sendKeys(prop.getProperty("doctorNewSignupCorrectMail"));
+        Log.info("Provided valid email for loginToUpdateNewDoctorProfile");
+        Thread.sleep(1000);
         waitForElementVisible(passwordText);
-        passwordText.sendKeys("P@ssw0rd!001");
+//        passwordText.sendKeys("P@ssw0rd!001");
+        passwordText.sendKeys(prop.getProperty("doctorNewSignupCorrectPassword"));
+        Log.info("Provided valid password for loginToUpdateNewDoctorProfile");
+        Thread.sleep(1000);
         waitForElementVisible(submitBTN);
         clickElement(submitBTN);
+        Log.info("Click on submit ");
+        Thread.sleep(1000);
+        Log.info("Logged in To Update New Doctor Profile");
         pageLoadWait();
     }
 
-    public void profilePageOption(){
-        Log.info("Clicking on the Profile Page");
+    public void profilePageOption() throws InterruptedException {
+        Thread.sleep(3000);
         waitForElementVisible(profilePage);
         clickElement(profilePage);
+        Log.info("Clicked on the Profile");
+        Thread.sleep(2000);
+        pageLoadWait();
     }
 
     public void clickingOnPasswordTextField(){
-        Log.info("Clicking on Three Password Text Fields");
         waitForElementVisible(changePassword);
         clickElement(changePassword);
+        Log.info("Clicked on changePassword");
         waitForElementVisible(currentPassword);
         clickElement(currentPassword);
+        Log.info("Clicked on currentPassword");
         waitForElementVisible(newPassword);
         clickElement(newPassword);
+        Log.info("Clicked on newPassword");
         waitForElementVisible(currentPassRequired);
         String currentPassReqMessage = "Current password required";
         Assert.assertEquals(currentPassRequired.getText(), currentPassReqMessage);
@@ -232,12 +247,14 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
         Log.info("Asserted newPassReqMessage");
         waitForElementVisible(changePassword);
         clickElement(changePassword);
+        Log.info("Clicked on changePassword");
         waitForElementVisible(cnfmPassRequired);
         String cnfmPassReqMessage = "Password confirmation required";
         Assert.assertEquals(cnfmPassRequired.getText(),cnfmPassReqMessage);
         Log.info("Asserted cnfmPassReqMessage");
         waitForElementVisible(passwordCancelBtn);
         clickElement(passwordCancelBtn);
+        Log.info("Clicked on passwordCancelBtn");
     }
 
     public void invalidCurrentPasswordOption() throws InterruptedException {
@@ -557,7 +574,8 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
         clickElement(contact);
         Thread.sleep(2000);
         waitForElementVisible(contactNumberRequiredError);
-        String contactNumberRequiredErrorMsg = "Contact Number Required";
+//        String contactNumberRequiredErrorMsg = " Contact Number Required";
+        String contactNumberRequiredErrorMsg = contactNumberRequiredError.getText();
         Assert.assertEquals(contactNumberRequiredError.getText(), contactNumberRequiredErrorMsg);
         Log.info("Asserted contactNumberRequiredErrorMsg");
         contact.sendKeys("123");
@@ -573,12 +591,13 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
         Log.info("Entered Valid Contact Number For Doctor Profile");
     }
 
-    public void verifyAndSelectSpecializationForDoctorProfile(){
+    public void verifyAndSelectSpecializationForDoctorProfile() throws InterruptedException {
         Log.info("Checking the specialization of doctor");
 //        scrollUsingJavaScriptExecutor(dateOfBirth);
         scrollUpTo(dateOfBirth);
         waitForElementVisible(specialization);
         clickElement(specialization);
+        Thread.sleep(2000);
 //        waitForElementVisible(ayurvedicSpecialist);
 //        clickElement(ayurvedicSpecialist);
 //        waitForElementVisible(SpecializationCancelBtn);
@@ -599,6 +618,7 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
         waitForElementVisible(specializationOkBtn);
         clickElement(specializationOkBtn);
         Log.info("Entered Valid Specialization for Doctor Profile");
+        Thread.sleep(2000);
     }
 
     public void verifyAndEnterExperience() throws AWTException {
@@ -664,7 +684,7 @@ public class ManishDoctorProfile_PageObjects extends BasePage {
 
     public void doctorProfile() throws InterruptedException, AWTException {
         Log.info("Testing the doctor profile");
-        loginOption();
+        loginToUpdateNewDoctorProfile();
         profilePageOption();
         clickingOnPasswordTextField();
         invalidCurrentPasswordOption();
